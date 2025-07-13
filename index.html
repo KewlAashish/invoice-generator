@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cab Invoice Generator</title>
+  <script src="js/homePageHandlers.js"></script>
+  <link rel="stylesheet" href="/css/homePageStyling.css">
+</head>
+<body>
+
+  <!-- Invoice Preview -->
+  <div id="invoicePreview">
+    <!-- BEGIN: Red Header Inside Invoice -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="text-align: center;">
+        <div style="display: grid; grid-template-columns: repeat(2, 60px); gap: 8px;">
+          <div style="border: 2px solid red; color: red; font-weight: bold; font-size: 28px; padding: 10px;">B</div>
+          <div style="border: 2px solid red; color: red; font-weight: bold; font-size: 28px; padding: 10px;">C</div>
+          <div style="border: 2px solid red; color: red; font-weight: bold; font-size: 28px; padding: 10px;">C</div>
+          <div style="border: 2px solid red; color: red; font-weight: bold; font-size: 28px; padding: 10px;">S</div>
+        </div>
+      </div>
+      <div style="text-align: right; flex: 1; margin-left: 1rem;">
+        <h2 style="color: red; margin-bottom: 0;">BISHT COOL CAB SERVICE</h2>
+        <p style="margin: 0;">A/c Cars for Local and Outstation</p>
+        <p style="margin: 0;">Cell: 9320417397 / 9819417397</p>
+        <p style="margin: 0;">e-mail: <a href="mailto:bishtcoolcabservice@yahoo.com">bishtcoolcabservice@yahoo.com</a></p>
+        <p style="margin: 0;">B-34/10, Laxmi CHS, Sector-10, Sanpada, Navi Mumbai - 400705</p>
+      </div>
+    </div>
+    <hr style="border: 2px solid red;" />
+    <h2 style="text-align:center; color: navy; text-decoration: underline;">INVOICE</h2>
+    <p style="text-align:center; color: navy;">Subject to Thane Jurisdiction</p>
+
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <p><strong>M/s.</strong> <span id="outClientName"></span></p>
+        <p>Car Used By: <span id="outCarUsedBy"></span></p>
+      </div>
+      <div style="text-align:right;">
+        <p><strong>Bill No:</strong> <span id="outBillNo"></span></p>
+        <p><strong>Date:</strong> <span id="outInvoiceDate"></span></p>
+        <p><strong>Date of use:</strong> <span id="outDateOfUse"></span></p>
+        <p><strong>Car No:</strong> <span id="outCarNo"></span></p>
+      </div>
+    </div>
+
+
+    <table style="width:100%; border-collapse: collapse;" border="1">
+      <thead>
+        <tr style="background:#eee;">
+          <th>Date</th>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="tripTableRows">
+        <!-- Filled dynamically -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" style="text-align: right; font-weight: bold;">Total</td>
+          <td style="text-align: right;" id="tableTotal">₹0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <strong><p id="amountInWords"></p></strong>
+
+    <p>Company’s Bank Detail:<br/>
+    Bank Name: BOI, A/c No: 005320110000427<br/>
+    Branch & IFSC code: Belapur & BKID0000053</p>
+
+    <hr/>
+
+    <p><small>
+      Interest at 18% per annum will be charged on an Account not settled within 15 days.<br/>
+      No dispute of objection will be entertained if not brought to our notice within 7 days.<br/>
+      On Local Duty After Twelve Hour Night Charge/Driver Allowance Applied.
+    </small></p>
+
+    <p>For BISHT COOL CAB SERVICE</p>
+  </div>
+
+  <button onclick="window.print()">Print Invoice</button>
+
+  <hr/>
+
+  <!-- Input Form -->
+  <form id="invoiceForm">
+    <h4>Add Trip Details</h4>
+
+    <div class="form-row">
+      <label for="billNo">Bill No:</label>
+      <input type="text" id="billNo" />
+    </div>
+
+    <div class="form-row">
+      <label for="clientName">M/s.:</label>
+      <input type="text" id="clientName" />
+    </div>
+
+    <div class="form-row">
+      <label for="invoiceDate">Date:</label>
+      <input type="date" id="invoiceDate" />
+    </div>
+
+    <div class="form-row">
+      <label for="carUsedBy">Car Used By:</label>
+      <input type="text" id="carUsedBy" />
+    </div>
+
+    <div class="form-row">
+      <label for="dateOfUse">Date(s) of Use:</label>
+      <input id="dateOfUse" placeholder="e.g. 2, 6, 8/07/2025" />
+    </div>
+
+    <div class="form-row">
+      <label for="carNo">Car No:</label>
+      <input type="text" id="carNo" />
+    </div>
+
+    <h4>Add Trip Particulars</h4>
+    <div id="tripInputs">
+      <div class="tripRow">
+        <input type="date" class="tripDate" />
+        <input type="text" placeholder="Description" class="tripDesc" />
+        <input type="number" placeholder="Amount" class="tripAmt" />
+      </div>
+    </div>
+    <button type="button" onclick="addTrip()">+ Add Trip</button><br/><br/>
+
+    <button type="button" onclick="generateInvoice()">Generate Invoice</button>
+  </form>
+</body>
+</html>
