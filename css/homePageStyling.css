@@ -202,3 +202,9 @@ hr {
     width: 100%;
   }
 }
+
+img.signature {
+  height: 70px;
+  max-width: 200px;
+  object-fit: contain;
+}
