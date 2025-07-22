@@ -49,19 +49,16 @@
 
     <table style="width:100%; border-collapse: collapse;" border="1">
       <thead>
-        <tr style="background:#eee;">
-          <th>Date</th>
+        <tr style="background:#eee; font-weight: bold;">
           <th>Description</th>
           <th>Amount</th>
         </tr>
       </thead>
-      <tbody id="tripTableRows">
-        <!-- Filled dynamically -->
-      </tbody>
+      <tbody id="tripTableRows"></tbody>
       <tfoot>
         <tr>
-          <td colspan="2" style="text-align: right; font-weight: bold;">Total</td>
-          <td style="text-align: right;" id="tableTotal">₹0.00</td>
+          <td style="text-align:right; font-weight: bold;">Total</td>
+          <td id="tableTotal" style="text-align:right;">₹0.00</td>
         </tr>
       </tfoot>
     </table>
@@ -123,10 +120,14 @@
       <input type="text" id="carNo" />
     </div>
 
+    <div class="form-row">
+      <label for="carMeta">Trip Particulars (meta row):</label>
+      <textarea id="carMeta" rows="2" placeholder="e.g. Car Dzire/Xcent A/c - Used for Pickup & Drop, etc." style="width: 270px; height: 80px;"></textarea>
+    </div>
+
     <h4>Add Trip Particulars</h4>
     <div id="tripInputs">
       <div class="tripRow">
-        <input type="date" class="tripDate" />
         <input type="text" placeholder="Description" class="tripDesc" />
         <input type="number" placeholder="Amount" class="tripAmt" />
       </div>

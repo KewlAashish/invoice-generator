@@ -2,7 +2,6 @@ function addTrip() {
   const div = document.createElement("div");
   div.className = "tripRow";
   div.innerHTML = `
-    <input type="date" class="tripDate" />
     <input type="text" placeholder="Description" class="tripDesc" />
     <input type="number" placeholder="Amount" class="tripAmt" />
   `;
@@ -23,7 +22,7 @@ function generateInvoice() {
     tableBody: document.getElementById("tripTableRows"),
   };
 
-  // Input fields
+  // Input values
   out.billNo.innerText = document.getElementById("billNo").value;
   out.date.innerText = document.getElementById("invoiceDate").value;
   out.carUsedBy.innerText = document.getElementById("carUsedBy").value;
@@ -31,21 +30,30 @@ function generateInvoice() {
   out.carNo.innerText = document.getElementById("carNo").value;
   out.clientName.innerText = document.getElementById("clientName").value;
 
+  const carMeta = document.getElementById("carMeta")?.value.trim() || "";
+
   // Clear previous table rows
   out.tableBody.innerHTML = "";
-
   let total = 0;
 
+  // ✅ Always add metadata row first (no amount)
+  if (carMeta) {
+    const metaRow = document.createElement("tr");
+    metaRow.innerHTML = `
+      <td colspan="2">${carMeta}</td>
+    `;
+    out.tableBody.appendChild(metaRow);
+  }
+
+  // ✅ Loop over trip rows
   const rows = document.querySelectorAll(".tripRow");
   rows.forEach(row => {
-    const date = row.querySelector(".tripDate")?.value;
     const desc = row.querySelector(".tripDesc")?.value.trim();
     const amt = parseFloat(row.querySelector(".tripAmt")?.value || 0);
 
-    if (date && desc && amt > 0) {
+    if (desc && amt > 0) {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${date}</td>
         <td>${desc}</td>
         <td style="text-align:right;">₹${amt.toFixed(2)}</td>
       `;
@@ -54,6 +62,7 @@ function generateInvoice() {
     }
   });
 
+  // ✅ Final total and amount in words
   out.totalCell.innerText = `₹${total.toFixed(2)}`;
   out.amountInWords.innerText = total > 0
     ? `INR ${convertNumberToWords(total)} Only`
